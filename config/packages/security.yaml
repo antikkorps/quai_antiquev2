@@ -19,6 +19,7 @@ security:
       form_login:
         login_path: app_login
         check_path: app_login
+        failure_path: app_login
         # with the redirect parameter the user is redirected back to the page he first tried to access
         # use this parameter if you want to redirect users directly after login.
         # default_target_path: app_homepage

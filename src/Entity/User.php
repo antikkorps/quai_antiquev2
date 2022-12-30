@@ -37,10 +37,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $nom = null;
 
     #[ORM\Column]
-    private ?int $convives = null;
-
-    #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
+    private ?bool $is_verified = true;
 
     public function getId(): ?int
     {
@@ -136,27 +133,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getConvives(): ?int
+    public function isVerified(): ?bool
     {
-        return $this->convives;
-    }
-
-    public function setConvives(int $convives): self
-    {
-        $this->convives = $convives;
-
-        return $this;
-    }
-
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
+        return $this->is_verified;
     }
 
     public function setIsVerified(bool $isVerified): self
     {
-        $this->isVerified = $isVerified;
+        $this->is_Verified = $isVerified;
 
         return $this;
     }
+
 }
