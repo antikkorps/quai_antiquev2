@@ -1,10 +1,14 @@
+#navbar-main {
+  background-color: #1b1a17;
+}
+
 .wrapper-register {
   background: #fff;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   box-shadow: 0 0 10px #ccc;
-  margin: 9rem auto;
-  padding: 20px;
+  margin: 10rem auto 0 auto;
+  padding: 2rem 3rem 1rem 3rem;
   width: 40rem;
 }
 
@@ -19,7 +23,8 @@
 }
 
 img#logo-top-nav {
-  width: 15rem;
+  width: 18rem;
+  margin: -1rem auto -1rem auto;
 }
 
 #hero-container {
@@ -44,5 +49,36 @@ img#logo-top-nav {
   position: relative;
   top: -35rem;
   transform: translateY(-8rem);
-  backdrop-filter: brightness(50%);
+  backdrop-filter: brightness(60%);
+}
+
+.btn-primary {
+  background-color: transparent;
+  border-color: #f0a500;
+  font-weight: bold;
+  color: #f0a500;
+  margin: 0 0.75rem;
+  --bs-btn-active-bg: #e45826;
+  --bs-btn-active-border-color: #e45826;
+}
+.btn-outline-primary {
+  border-color: #f0a500;
+  color: #f0a500;
+  margin: 0 0.75rem;
+  --bs-btn-active-bg: #e45826;
+  --bs-btn-active-border-color: #e45826;
+  font-weight: bold;
+}
+.btn-primary:hover {
+  background-color: #e45826;
+  opacity: 0.8;
+  border-color: #e45826;
+  color: #e6d5b8;
+  font-weight: bold;
+}
+.btn-outline-primary:hover {
+  border-color: #e45826;
+  background-color: #e45826;
+  color: #e6d5b8;
+  font-weight: bold;
 }
