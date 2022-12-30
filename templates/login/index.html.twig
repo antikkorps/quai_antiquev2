@@ -11,12 +11,12 @@
 <h2 class="text-center">Connexion</h2>
     <form action="{{ path('app_login') }}" method="post">
         <div class="form-group mt-2">
-    <label for="username">Email address</label>
+    <label for="username">Email</label>
     <input type="email" class="form-control" id="username" name="_username" value="{{ last_username }}" aria-describedby="emailHelp" placeholder="Enter email">
     <small id="emailHelp" class="form-text text-muted">Votre email sera votre nom d'utilisateur</small>
   </div>
   <div class="form-group mt-4">
-    <label for="password">Password</label>
+    <label for="password">Mot de passe</label>
     <input type="password" class="form-control" id="password" name="_password"placeholder="Password">
   </div>
 <div class="form-check">
@@ -28,7 +28,7 @@
         {# If you want to control the URL the user is redirected to on success
         <input type="hidden" name="_target_path" value="/account"> #}
 
-        <button type="submit" class="btn btn-primary mt-5">Login</button>
+        <button type="submit" class="btn btn-primary mt-5">Se connecter</button>
     </form>
 </div>
 {% endblock %}

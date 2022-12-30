@@ -11,9 +11,29 @@
 .wrapper-login {
   background: #fff;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 0 10px #ccc;
-  margin: 9rem auto;
+  margin: 15rem auto;
   padding: 20px;
   width: 40rem;
+}
+
+img#logo-top-nav {
+  width: 15rem;
+}
+
+#hero-image {
+  width: 100vw;
+  object-fit: cover;
+  height: 100vh;
+}
+
+#main-text {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  position: relative;
+  top: -30rem;
+  transform: translateY(-8rem);
+  backdrop-filter: brightness(70%);
 }
