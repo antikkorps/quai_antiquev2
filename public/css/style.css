@@ -1,0 +1,19 @@
+.wrapper-register {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #ccc;
+  margin: 9rem auto;
+  padding: 20px;
+  width: 40rem;
+}
+
+.wrapper-login {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #ccc;
+  margin: 9rem auto;
+  padding: 20px;
+  width: 40rem;
+}

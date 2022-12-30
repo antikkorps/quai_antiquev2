@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire{% endblock %}
+
+{% block body %}
+    <div class="wrapper-register">
+    <h2 class="mt-5">Pour réserver :</h2>
+    <p>Vous devez vous inscrire en remplissant le formulaire ci-dessous.</p>
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    {{ form_end(registrationForm) }}
+</div>
+{% endblock %}
