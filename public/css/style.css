@@ -22,10 +22,19 @@ img#logo-top-nav {
   width: 15rem;
 }
 
+#hero-container {
+  height: 100vh;
+}
+
 #hero-image {
   width: 100vw;
   object-fit: cover;
   height: 100vh;
+}
+
+#logo-hero-nav {
+  width: 20rem;
+  height: auto;
 }
 
 #main-text {
@@ -33,7 +42,7 @@ img#logo-top-nav {
   font-weight: 600;
   color: #fff;
   position: relative;
-  top: -30rem;
+  top: -35rem;
   transform: translateY(-8rem);
-  backdrop-filter: brightness(70%);
+  backdrop-filter: brightness(50%);
 }
