@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="wrapper-register">
-    <h2 class="mt-4">Pour ajouter un plat :</h2>
+    <h2 class="mt-2">Pour ajouter un plat :</h2>
     <p>Merci de remplir le formulaire ci-dessous</p>
 
     {{ form_start(form) }}
@@ -13,7 +13,8 @@
         {{ form_row(form.prix) }}
         {{ form_row(form.photo) }}
         {{ form_row(form.display_in_gallery) }}
-        
+        {{ form_row(form.categorie_id) }}
+        {{ form_row(form.formules) }}
         <button type="submit" class="btn btn-primary">Ajouter</button>
     {{ form_end(form) }}
 </div>

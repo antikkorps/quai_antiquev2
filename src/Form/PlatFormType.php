@@ -13,16 +13,28 @@ class PlatFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('description')
+            ->add('nom', null, [
+                'label' => 'Nom Du plat',
+            ])
+            ->add('description', null, [
+                'label' => 'Description',
+            ])
             ->add('prix', MoneyType::class, [
                 'currency' => 'EUR',
                 'divisor' => 100,
             ])
-            ->add('photo')
-            ->add('display_in_gallery')
-            ->add('categorie_id')
-            ->add('formules')
+            ->add('photo', null, [
+                'label' => 'Image du plat',
+            ])
+            ->add('display_in_gallery', null, [
+                'label' => 'Afficher dans la galerie',
+            ])
+            ->add('categorie_id', null, [
+                'label' => 'Catégorie',
+            ])
+            ->add('formules', null, [
+                'label' => 'Formules',
+            ])
         ;
     }
 
