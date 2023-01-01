@@ -25,9 +25,19 @@
         <button class="btn btn-outline-primary">Réserver en ligne</button>
         </li>
       </ul>
-      
-      <a href="/register"class="btn btn-primary-outline btn-dark me-1">s'inscrire</a>
+      {# if user is connected and is an admin show a button admin to go to the admin interface using switch#}
+      {% if app.user and app.user.roles[0] == 'ROLE_ADMIN' %}
+      <a href="/admin" class="btn btn-primary-outline btn-dark me-1">Admin</a>
+      {% endif %}
+      {# if user is connected show a button logout to disconnect the user #}
+      {% if app.user %}
+      <a href="{{ logout_url(key = null) }}" class="btn btn-primary-outline btn-dark me-1">Déconnexion</a>
+      {% endif %}
+      {# if user is not connected show a button register to register and a button login to connect #}
+      {% if  app.user == null %}
+      <a href="/register" class="btn btn-primary-outline btn-dark me-1">s'inscrire</a>
       <a href="/login" class="btn btn-primary">s'identifier</a>
+      {% endif %}
     </div>
   </div>
 </nav>
