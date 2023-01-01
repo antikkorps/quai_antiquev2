@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
+
 #[ORM\Entity(repositoryClass: PlatRepository::class)]
 class Plat
 {
@@ -22,11 +24,11 @@ class Plat
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
+    #[ORM\Column(type: Types::INTEGER, precision: 6, scale: 2)]
     private ?string $prix = null;
 
     #[ORM\ManyToOne(inversedBy: 'plats_par_categorie')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?CategorieDuPlat $categorie_id = null;
 
     #[ORM\Column(length: 255)]

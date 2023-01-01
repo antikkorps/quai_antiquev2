@@ -26,6 +26,11 @@ class CategorieDuPlat
         $this->plats_par_categorie = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->nom_categorie;
+    }
+    
     public function getId(): ?int
     {
         return $this->id;

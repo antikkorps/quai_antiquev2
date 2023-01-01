@@ -4,8 +4,13 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Form\PlatFormType;
 use App\Repository\PlatRepository;
+use App\Entity\Plat;
+
 
 class PlatController extends AbstractController
 {
@@ -21,21 +26,22 @@ class PlatController extends AbstractController
     }
 
     #[Route('/plat/add', name: 'app_add_plat')]
-    public function addplat(EntityManagerInterface $em): Response
+    public function addplat(Request $request, EntityManagerInterface $entityManager): Response
     {
         $plat = new Plat();
-        $plat->setNom('Nom du plat');
-        $plat->setDescription('Description du plat');
-        $plat->setPrix('Prix du plat');
-        $plat->setCategorieId('Categorie du plat');
-        $plat->setPhoto('Photo du plat');
-        $plat->setDisplayInGallery('Afficher dans la galerie');
         
-        $em->persist($plat);
-        $em->flush();
+        $form = $this->createForm(PlatFormType::class, $plat);
 
-        die();
-        return $this->render('plat/add.html.twig');
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $entityManager->persist($plat);
+            $entityManager->flush();
+            
+        }
+        return $this->render('plat/add.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/plat/{id}', name: 'app_show_plat')]

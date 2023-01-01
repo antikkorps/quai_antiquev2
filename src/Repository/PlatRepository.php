@@ -39,6 +39,22 @@ class PlatRepository extends ServiceEntityRepository
         }
     }
 
+   /**
+    * @return Plat[] Returns an array of Plat objects
+    */
+
+    public function displayPlatInFrontPage()
+   
+   {
+       return $this->createQueryBuilder('p')
+           ->andWhere('p.display_in_gallery = True')
+           ->orderBy('p.id', 'DESC')
+           ->setMaxResults(6)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return Plat[] Returns an array of Plat objects
 //     */
