@@ -28,7 +28,7 @@ class AppFixtures extends Fixture
      
         $user->setPrenom($faker->firstName());
         $user->setNom($faker->lastName());
-        $user->setEmail('test@test.com');
+        $user->setEmail('franck@gmail.com');
         $user->setRoles(['ROLE_USER']);
         //$user->setPassword('password');
 
@@ -37,46 +37,58 @@ class AppFixtures extends Fixture
 
         $manager->persist($user);
 
-        //création de 10 plats du restaurant
-        for ($i = 0; $i < 10; $i++) {
-            $plat = new Plat();
-            $plat->setNom($faker->sentence(1));
-            $plat->setDescription($faker->paragraph(2));
-            $plat->setPrix($faker->randomFloat(2, 5, 20));
-            $plat->setCategorieId($faker->randomElement([1, 2, 3, 4, 5]));
-            $plat->setPhoto($faker->imageUrl(640, 480, 'food'));
-            $plat->setDisplayInGallery($faker->randomElement([0, 1]));
+        //création d'un utilisateur admin
+        $admin = new User();
+        $admin->setPrenom($faker->firstName());
+        $admin->setNom($faker->lastName());
+        $admin->setEmail('franckadmin@gmail.com');
+        $admin->setRoles(['ROLE_ADMIN']);
 
-            $manager->persist($plat);
-        }
+        $password = $this->hasher->hashPassword($admin, 'password');
+        $admin->setPassword($password);
 
-        //création de 5 catégories de plats
-        for ($i = 0; $i < 5; $i++) {
-            $categorie = new Categorie();
-            $categorie->setNom($faker->sentence(1));
+        $manager->persist($admin);
 
-            $manager->persist($categorie);
-        }
+        // //création de 10 plats du restaurant
+        // for ($i = 0; $i < 10; $i++) {
+        //     $plat = new Plat();
+        //     $plat->setNom($faker->sentence(1));
+        //     $plat->setDescription($faker->paragraph(2));
+        //     $plat->setPrix($faker->randomFloat(2, 5, 20));
+        //     $plat->setCategorieId($faker->randomElement([1, 2, 3, 4, 5]));
+        //     $plat->setPhoto($faker->imageUrl(640, 480, 'food'));
+        //     $plat->setDisplayInGallery($faker->randomElement([0, 1]));
 
-        //creation de 2 formules du restaurant midi et soir
-        for ($i = 0; $i < 2; $i++) {
-            $formule = new Formule();
-            $formule->setNom($faker->sentence(1));
-            $formule->setDescription($faker->paragraph(2));
-            $formule->setPrix($faker->randomFloat(2, 5, 20));
+        //     $manager->persist($plat);
+        // }
 
-            $manager->persist($formule);
-        }
+        // //création de 5 catégories de plats
+        // for ($i = 0; $i < 5; $i++) {
+        //     $categorie = new Categorie();
+        //     $categorie->setNom($faker->sentence(1));
 
-        //création de 4 menus du restaurant
-        for ($i = 0; $i < 4; $i++) {
-            $menu = new Menu();
-            $menu->setNom($faker->sentence(1));
-            $menu->setDescription($faker->paragraph(2));
-            $menu->setPrix($faker->randomFloat(2, 5, 20));
+        //     $manager->persist($categorie);
+        // }
 
-            $manager->persist($menu);
-        }
+        // //creation de 2 formules du restaurant midi et soir
+        // for ($i = 0; $i < 2; $i++) {
+        //     $formule = new Formule();
+        //     $formule->setNom($faker->sentence(1));
+        //     $formule->setDescription($faker->paragraph(2));
+        //     $formule->setPrix($faker->randomFloat(2, 5, 20));
+
+        //     $manager->persist($formule);
+        // }
+
+        // //création de 4 menus du restaurant
+        // for ($i = 0; $i < 4; $i++) {
+        //     $menu = new Menu();
+        //     $menu->setNom($faker->sentence(1));
+        //     $menu->setDescription($faker->paragraph(2));
+        //     $menu->setPrix($faker->randomFloat(2, 5, 20));
+
+        //     $manager->persist($menu);
+        // }
 
 
         $manager->flush();
