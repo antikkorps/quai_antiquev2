@@ -28,7 +28,7 @@
 }
 
 img#logo-top-nav {
-  width: 18rem;
+  width: 14rem;
   margin: -1rem auto -1rem auto;
 }
 
@@ -130,7 +130,6 @@ img#logo-top-nav {
 /* Opening Hours */
 .opening_hours_table {
   width: 90%;
-  margin: 0 auto;
 }
 
 @media screen and (min-width: 800px) {
