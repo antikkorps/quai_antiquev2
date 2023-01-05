@@ -1,0 +1,41 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}Nos Heures d'ouvertures{% endblock %}
+
+{% block body %}
+<div class="opening_hours_table">
+    <table class="table caption-top">
+  <caption>Horaires d'ouvertures</caption>
+  <thead>
+    <tr>
+      <th scope="col">jour</th>
+      <th scope="col">Ouverture du midi</th>
+      <th scope="col">Fermeture du midi</th>
+      <th scope="col">Ouverture du soir</th>
+      <th scope="col">Fermeture du soir</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+{% endblock %}

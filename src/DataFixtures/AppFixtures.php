@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Entity\RushHour;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -48,6 +49,19 @@ class AppFixtures extends Fixture
         $admin->setPassword($password);
 
         $manager->persist($admin);
+
+        //création des horaires d'ouverture et de fermeture du restaurant
+        for ($i = 0; $i < 7; $i++) {
+            $rushHour = new RushHour();
+            $rushHour->setDay($faker->dayOfWeek($i));
+            $rushHour->setMorningOpeningHour($faker->Datetime('H:i'));
+            $rushHour->setMorningClosingHour($faker->Datetime('H:i'));
+            $rushHour->setEveningOpeningHour($faker->Datetime('H:i'));
+            $rushHour->setEveningClosingHour($faker->Datetime('H:i'));
+
+            $manager->persist($rushHour);
+        }
+
 
         // //création de 10 plats du restaurant
         // for ($i = 0; $i < 10; $i++) {

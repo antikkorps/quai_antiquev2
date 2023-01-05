@@ -3,18 +3,52 @@
 {% block title %}Hello OpeningHoursController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="opening_hours_table table-responsive" id="opening-hours-tab">
+    <table class="table caption-top">
+  <caption>Horaires d'ouvertures</caption>
+  <thead>
+    <tr class="text-center">
+      <th scope="col">Jour de la semaine</th>
+      <th scope="col"colspan="3">Midi</th>
+      <th scope="col" colspan="3">Soir</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+  {% for hour in hours %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <tr class="text-center">
+      <th scope="row text">{{ hour.day }}</th>
+      {% if hour.getMorningOpeningHour != null %}
+      <td>{{ hour.getMorningOpeningHour|date("H:m") }}</td>
+      {% else %}
+        <td>Fermé</td>
+      {% endif %}
+      <td>-</td>
+        {% if hour.getMorningClosingHour != null %}
+      <td>{{ hour.getMorningClosingHour|date("H:m") }}</td>
+      {% else %}
+        <td>Fermé</td>
+        {% endif %}
+      {% if hour.getEveningOpeningHour != null %}
+      <td>{{ hour.getEveningOpeningHour|date("H:m") }}</td>
+      {% else %}
+        <td>Fermé</td>
+        {% endif %}
+      <td>-</td>
+      {% if hour.getEveningClosingHour != null %}
+      <td>{{ hour.getEveningClosingHour|date("H:m")}}</td>
+      {% else %}
+        <td>Fermé</td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if app.user and app.user.roles[0] == 'ROLE_ADMIN' %}
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <a href="/admin/opening_hours/add" class="btn btn-primary me-4 align-content-right">Modifier les horaires</a>
+</div>
+      {% endif %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/media/franck/Programmes/www/quai_antique/src/Controller/OpeningHoursController.php'|file_link(0) }}">src/Controller/OpeningHoursController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/media/franck/Programmes/www/quai_antique/templates/opening_hours/index.html.twig'|file_link(0) }}">templates/opening_hours/index.html.twig</a></code></li>
-    </ul>
 </div>
 {% endblock %}

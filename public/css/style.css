@@ -116,7 +116,7 @@ img#logo-top-nav {
   width: 12rem;
   display: flex;
   position: relative;
-  left: 4rem;
+  left: 3rem;
   margin: 1rem auto;
 }
 
@@ -124,5 +124,18 @@ img#logo-top-nav {
   #logo-top-nav-admin {
     width: 10rem;
     margin: 1rem auto;
+  }
+}
+
+/* Opening Hours */
+.opening_hours_table {
+  width: 90%;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 800px) {
+  .opening_hours_table {
+    width: 40%;
+    margin: 9rem auto 4rem auto;
   }
 }
