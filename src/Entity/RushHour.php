@@ -14,7 +14,7 @@ class RushHour
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 60)]
+    #[ORM\Column(length: 60, nullable: true)]
     private ?string $day = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
@@ -28,6 +28,9 @@ class RushHour
 
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $evening_closing_hour = null;
+
+    #[ORM\Column (nullable:true)]
+    private ?int $capacite = null;
 
     public function getId(): ?int
     {
@@ -92,5 +95,16 @@ class RushHour
         $this->evening_closing_hour = $evening_closing_hour;
 
         return $this;
+    }
+
+    public function getCapacite(): ?int
+    {
+        return $this->capacite;
+    }
+
+    public function setCapacite(int $capacite = null): void
+    {
+        $this->capacite = $capacite;
+
     }
 }

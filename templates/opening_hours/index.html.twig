@@ -11,6 +11,9 @@
       <th scope="col">Jour de la semaine</th>
       <th scope="col"colspan="3">Midi</th>
       <th scope="col" colspan="3">Soir</th>
+      {% if app.user and app.user.roles[0] == 'ROLE_ADMIN' %}
+      <th scope="col">Modifier</th>
+      {% endif %}
     </tr>
   </thead>
   <tbody class="table-group-divider">
@@ -19,36 +22,51 @@
     <tr class="text-center">
       <th scope="row text">{{ hour.day }}</th>
       {% if hour.getMorningOpeningHour != null %}
-      <td>{{ hour.getMorningOpeningHour|date("H:m") }}</td>
+      <td>{{ hour.getMorningOpeningHour|date("H:i") }}</td>
       {% else %}
         <td>Fermé</td>
       {% endif %}
       <td>-</td>
         {% if hour.getMorningClosingHour != null %}
-      <td>{{ hour.getMorningClosingHour|date("H:m") }}</td>
+      <td>{{ hour.getMorningClosingHour|date("H:i") }}</td>
       {% else %}
         <td>Fermé</td>
         {% endif %}
       {% if hour.getEveningOpeningHour != null %}
-      <td>{{ hour.getEveningOpeningHour|date("H:m") }}</td>
+      <td>{{ hour.getEveningOpeningHour|date("H:i") }}</td>
       {% else %}
         <td>Fermé</td>
         {% endif %}
       <td>-</td>
       {% if hour.getEveningClosingHour != null %}
-      <td>{{ hour.getEveningClosingHour|date("H:m")}}</td>
+      <td>{{ hour.getEveningClosingHour|date("H:i")}}</td>
       {% else %}
         <td>Fermé</td>
+        {% endif %}
+        {% if app.user and app.user.roles[0] == 'ROLE_ADMIN' %}
+        <td>
+      <a href="/admin/opening_hours/edit/{{ hour.getid }}" class="btn btn-primary me-4 align-content-right"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+</svg></a>
+        </td>
         {% endif %}
     </tr>
     {% endfor %}
   </tbody>
 </table>
-{% if app.user and app.user.roles[0] == 'ROLE_ADMIN' %}
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <a href="/admin/opening_hours/add" class="btn btn-primary me-4 align-content-right">Modifier les horaires</a>
-</div>
-      {% endif %}
+
+      
 
 </div>
 {% endblock %}

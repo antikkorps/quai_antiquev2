@@ -7,10 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
-
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: PlatRepository::class)]
+
 class Plat
 {
     #[ORM\Id]
@@ -31,8 +34,14 @@ class Plat
     #[ORM\JoinColumn(nullable: true)]
     private ?CategorieDuPlat $categorie_id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $photo = null;
+    // #[ORM\Column(length: 255, nullable:true)]
+    // private ?string $photo = null;
+
+    #[Vich\UploadableField(mapping: 'images_plats', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(type: 'string')]
+    private ?string $imageName = null;
 
     #[ORM\ManyToMany(targetEntity: Formule::class, mappedBy: 'plat')]
     private Collection $formules;
@@ -98,18 +107,47 @@ class Plat
         return $this;
     }
 
-    public function getPhoto(): ?string
+    // public function getPhoto(): ?string
+    // {
+    //     return $this->photo;
+    // }
+
+    // public function setPhoto(string $photo): self
+    // {
+    //     $this->photo = $photo;
+
+    //     return $this;
+    // }
+    public function setImageFile(?File $imageFile = null): void
     {
-        return $this->photo;
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
-    public function setPhoto(string $photo): self
+    public function getImageFile(): ?File
     {
-        $this->photo = $photo;
-
-        return $this;
+        return $this->imageFile;
     }
 
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
     /**
      * @return Collection<int, Formule>
      */

@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PlatFormType extends AbstractType
 {
@@ -23,8 +25,10 @@ class PlatFormType extends AbstractType
                 'currency' => 'EUR',
                 'divisor' => 100,
             ])
-            ->add('photo', null, [
+            ->add('imageFile', VichImageType::class, [
                 'label' => 'Image du plat',
+                'label_attr' => ['class' => 'btn btn-primary'],
+                'required' => false,
             ])
             ->add('display_in_gallery', null, [
                 'label' => 'Afficher dans la galerie',

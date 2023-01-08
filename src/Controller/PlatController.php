@@ -14,18 +14,17 @@ use App\Entity\Plat;
 
 class PlatController extends AbstractController
 {
-    #[Route('/plat', name: 'app_plat')]
+    #[Route('/admin/plat', name: 'app_plat')]
     public function index(PlatRepository $platRepository): Response
     {
         $plats = $platRepository->findAll();
-        dd($plats);
 
         return $this->render('plat/index.html.twig', [
             'plats' => $plats,
         ]);
     }
 
-    #[Route('/plat/add', name: 'app_add_plat')]
+    #[Route('/admin/plat/add', name: 'app_add_plat')]
     public function addplat(Request $request, EntityManagerInterface $entityManager): Response
     {
         $plat = new Plat();
@@ -44,7 +43,7 @@ class PlatController extends AbstractController
         ]);
     }
 
-    #[Route('/plat/{id}', name: 'app_show_plat')]
+    #[Route('admin/plat/{id}', name: 'app_show_plat')]
     public function showPlat(int $id, PlatRepository $platRepository): Response
     {
         $plat = $platRepository->find($id);

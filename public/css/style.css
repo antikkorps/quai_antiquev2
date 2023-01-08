@@ -110,6 +110,13 @@ img#logo-top-nav {
   font-weight: bold;
 }
 
+/* GALLERIE*/
+.img-thumbnail {
+  width: 286px;
+  height: 191px;
+  object-fit: cover;
+}
+
 /* Admin */
 
 #logo-top-nav-admin {
@@ -137,4 +144,8 @@ img#logo-top-nav {
     width: 40%;
     margin: 9rem auto 4rem auto;
   }
+}
+
+.form_hour_container {
+  width: 30rem;
 }

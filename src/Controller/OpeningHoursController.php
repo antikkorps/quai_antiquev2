@@ -6,10 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityManagerInterface;
-// form à créer
+use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\RushHourRepository;
 use App\Entity\RushHour;
+use App\Form\OpeningHoursFormType;
 
 class OpeningHoursController extends AbstractController
 {
@@ -17,28 +20,33 @@ class OpeningHoursController extends AbstractController
     public function index(RushHourRepository $rushHourRepository): Response
     {
         $hours = $rushHourRepository->findAll();
+    
 
         return $this->render('opening_hours/index.html.twig', [
             'hours' => $hours,
         ]);
     }
 
-    #[Route('/admin/opening_hours/add', name: 'app_add_opening_hours')]
-    public function modify_opening_hours(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/admin/opening_hours/edit/{id}', name: 'app_opening_hours_edit')]
+    public function update(ManagerRegistry $doctrine, int $id): Response
     {
-        $hours = new RushHour();
-        
-        $form = $this->createForm(Opening_hoursFormType::class, $hours);
+        $entityManager = $doctrine->getManager();
+        $rushHour = $entityManager->getRepository(RushHour::class)->find($id);
 
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) { 
-            $entityManager->persist($hours);
-            $entityManager->flush();
-            
+        $form = $this->createForm(OpeningHoursFormType::class, $rushHour);
+      
+
+        if (!$rushHour) {
+            throw $this->createNotFoundException(
+                'Pas d\'entrée pour cet id '.$id
+            );
         }
-        return $this->render('opening_hours/add.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        $entityManager->persist($rushHour);
+        $entityManager->flush();
+
+    return 
+    $this->render('opening_hours/edit.html.twig', [
+        'rushHour' => $rushHour,
+    ]);
     }
 }

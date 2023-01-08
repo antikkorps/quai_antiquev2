@@ -58,6 +58,7 @@ class AppFixtures extends Fixture
             $rushHour->setMorningClosingHour($faker->Datetime('H:i'));
             $rushHour->setEveningOpeningHour($faker->Datetime('H:i'));
             $rushHour->setEveningClosingHour($faker->Datetime('H:i'));
+            $rushHour->setCapacite($faker->randomDigitNotNull());
 
             $manager->persist($rushHour);
         }
