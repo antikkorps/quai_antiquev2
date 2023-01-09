@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Horaire{% endblock %}
+
+{% block body %}
+    
+
+
+<div class="opening_hours_table table-responsive" id="opening-hours-tab">
+    <table class="table caption-top">
+  <caption>Horaires du {{ horaire.jour }}</caption>
+  <thead>
+    <tr class="text-center">
+      <th scope="col">Id</th>
+      <th scope="col">Jour</th>
+      <th scope="col">midi</th>
+      <th scope="col">Capacité midi</th>
+        <th scope="col">soir</th>
+        <th scope="col">capacite soir</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+  <tr class="text-center">
+      <td>{{ horaire.id }}</td>
+        <td>{{ horaire.jour }}</td>
+      <td>{{ horaire.ouvertureMidi|date('H:i') }} - {{ horaire.fermetureMidi|date('H:i') }}</td>
+      <td>{{ horaire.capaciteMidi }}</td>
+      <td>{{ horaire.ouvertureSoir|date('H:i') }} - {{ horaire.fermetureSoir|date('H:i') }}</td>
+        <td>{{ horaire.capaciteSoir }}</td>
+    </tr>
+    </tbody>
+</table>
+<a href="{{ path('app_horaire_index') }}" class="btn btn-primary m-auto pl-2 pr-2 align-content-center"><svg fill="currentColor" width="24" height="24" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M222.927 580.115l301.354 328.512c24.354 28.708 20.825 71.724-7.883 96.078s-71.724 20.825-96.078-7.883L19.576 559.963a67.846 67.846 0 01-13.784-20.022 68.03 68.03 0 01-5.977-29.488l.001-.063a68.343 68.343 0 017.265-29.134 68.28 68.28 0 011.384-2.6 67.59 67.59 0 0110.102-13.687L429.966 21.113c25.592-27.611 68.721-29.247 96.331-3.656s29.247 68.721 3.656 96.331L224.088 443.784h730.46c37.647 0 68.166 30.519 68.166 68.166s-30.519 68.166-68.166 68.166H222.927z"/></svg> Retour à la liste</a>
+<a href="{{ path('app_horaire_edit', {'id': horaire.id}) }}" class="btn btn-primary m-auto pl-2 pr-2 align-content-center"><svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+</svg> Modifier</a>
+
+</div>
+
+    {# {{ include('horaire/_delete_form.html.twig') }} #}
+{% endblock %}

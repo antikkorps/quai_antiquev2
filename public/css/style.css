@@ -39,7 +39,7 @@ img#logo-top-nav {
 #hero-image {
   width: 100%;
   position: relative;
-  top: 8rem;
+  top: 2rem;
   object-fit: cover;
 }
 
@@ -115,6 +115,14 @@ img#logo-top-nav {
   width: 286px;
   height: 191px;
   object-fit: cover;
+}
+
+.card-body {
+  overflow: hidden;
+  color: black;
+  margin-left: 1rem;
+  transform: translateY(10rem);
+  z-index: 1;
 }
 
 /* Admin */
