@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Merci pour votre réservation!{% endblock %}
+
+{% block body %}
+<div class="example-wrapper mt-5">
+    <h1>Votre réservation a bien été prise en compte ✅</h1>
+Vous allez recevoir un mail vous confirmant votre réservation du
+    {# Vous allez recevoir un mail vous confirmant votre réservation du {{ reservation.date|date('d/m/Y') }} à {{ reservation.heure|date('H:i') }}. #}
+    
+</div>
+{% endblock %}
