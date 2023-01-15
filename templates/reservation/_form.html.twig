@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+{{ form_widget(form.user)}}
+{{ form_widget(form.date)|date_format('d/m/Y') }}
+{{ form_widget(form.horaire)|time_format('H:i') }}
+{{ form_widget(form.allergie) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
