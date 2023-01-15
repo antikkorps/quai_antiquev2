@@ -16,10 +16,6 @@ class Reservation
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Horaire $horaire = null;
-
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     #[ORM\Column]
@@ -34,18 +30,6 @@ class Reservation
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getHoraire(): ?Horaire
-    {
-        return $this->horaire;
-    }
-
-    public function setHoraire(?Horaire $horaire): self
-    {
-        $this->horaire = $horaire;
-
-        return $this;
     }
 
     public function getUser(): ?User

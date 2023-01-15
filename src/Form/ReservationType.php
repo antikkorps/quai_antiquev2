@@ -14,16 +14,8 @@ class ReservationType extends AbstractType
     {
         $builder
 
-            //Get the current user name and autofill the form field user with it
-            ->add('user', null, [
-                'data' => $options['user'],
-                'label' => 'Nom',
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
+
             ->add('date')
-            ->add('horaire')
             ->add('nombreDePersonnes')
             ->add('allergies');
     }

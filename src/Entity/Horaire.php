@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HoraireRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,6 +36,14 @@ class Horaire
 
     #[ORM\Column(nullable: true)]
     private ?int $capaciteSoir = null;
+
+    #[ORM\OneToMany(mappedBy: 'horaire', targetEntity: Tranche::class, orphanRemoval: true)]
+    private Collection $tranches;
+
+    public function __construct()
+    {
+        $this->tranches = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +130,36 @@ class Horaire
     public function setCapaciteSoir(?int $capaciteSoir): self
     {
         $this->capaciteSoir = $capaciteSoir;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tranche>
+     */
+    public function getTranches(): Collection
+    {
+        return $this->tranches;
+    }
+
+    public function addTranch(Tranche $tranch): self
+    {
+        if (!$this->tranches->contains($tranch)) {
+            $this->tranches->add($tranch);
+            $tranch->setHoraire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranch(Tranche $tranch): self
+    {
+        if ($this->tranches->removeElement($tranch)) {
+            // set the owning side to null (unless already changed)
+            if ($tranch->getHoraire() === $this) {
+                $tranch->setHoraire(null);
+            }
+        }
 
         return $this;
     }

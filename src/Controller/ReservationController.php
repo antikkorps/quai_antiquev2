@@ -26,9 +26,13 @@ class ReservationController extends AbstractController
     #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReservationRepository $reservationRepository): Response
     {
+
         $reservation = new Reservation();
+        //with the name of the current user
+        $reservation->setUser($this->getUser());
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reservationRepository->save($reservation, true);
