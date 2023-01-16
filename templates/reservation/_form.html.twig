@@ -1,8 +1,25 @@
 
-<div class="mt-5">
+<div class="form-control" id='reservation-form'>
+<div class="form-group">
 {{ form_start(form) }}
+<h1 class='pt-2 d-flex justify-content-center nouvelle-resa'>Nouvelle Réservation</h1>
+{{ form_label(form.date) }}
 {{ form_widget(form.date)}}
+{{ form_help(form.date)}}
+<div class="info mt-2">Actuellement pour cette date il nous reste 20 places disponibles</div>
+</div>
+<div class="form-group mt-4">
+{{ form_label(form.allergies) }}
 {{ form_widget(form.allergies) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_help(form.allergies) }}
+</div>
+<div class="form-group mt-4">
+{{ form_label(form.nombreDePersonnes) }}
+{{ form_widget(form.nombreDePersonnes) }}
+{{ form_help(form.nombreDePersonnes) }}
+</div>
+<div class="form-group">
+    <button class="btn btn-primary my-4">{{ button_label|default('Effectuer la réservation') }}</button>
+</div>
 {{ form_end(form) }}
 </div>

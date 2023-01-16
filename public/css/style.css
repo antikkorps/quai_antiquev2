@@ -157,3 +157,17 @@ img#logo-top-nav {
 .form_hour_container {
   width: 30rem;
 }
+
+/*CALENDAR*/
+#calendar {
+  width: 60%;
+  height: 60%;
+  margin: 1rem auto;
+}
+/*RESERVATION FORM*/
+
+#reservation-form {
+  width: 60%;
+  margin: 10rem auto 2rem auto;
+  padding-top: 2rem;
+}
