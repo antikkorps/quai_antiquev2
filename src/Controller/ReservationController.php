@@ -6,11 +6,11 @@ use App\Entity\Reservation;
 use App\Entity\User;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 #[Route('/reservation')]
 class ReservationController extends AbstractController
@@ -18,6 +18,17 @@ class ReservationController extends AbstractController
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
     public function index(ReservationRepository $reservationRepository): Response
     {
+        $resas = $reservationRepository->findAll();
+        $crenaux = [];
+        // $interval = ($resa + 1);
+
+        // foreach ($resas as $resa) {
+        //     $creneaux[] = [
+        //         'start' => $resa->getDate()->format('Y-m-d H:i:s'),
+        //         'end' => $interval->format('Y-m-d H:i:s'),
+        //         'title' => $resa->getUser()->getUsername(),
+        //     ];
+        // }
         return $this->render('reservation/index.html.twig', [
             'reservations' => $reservationRepository->findAll(),
         ]);
