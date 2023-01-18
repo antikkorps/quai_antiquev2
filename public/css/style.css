@@ -35,31 +35,63 @@ img#logo-top-nav {
 #hero-container {
   height: 100vh;
 }
-
-#hero-image {
+#hero-image-mobile {
   width: 100%;
-  position: relative;
-  top: 2rem;
   object-fit: cover;
+  margin-top: 8rem;
+}
+#hero-image-desktop {
+  display: none;
 }
 
 #logo-hero-nav {
-  width: 20rem;
+  width: 10rem;
   height: auto;
 }
 
 #main-text {
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #fff;
   position: relative;
   top: -1rem;
-  transform: translateY(-8rem);
+  transform: translateY(-25rem);
   backdrop-filter: brightness(60%);
 }
-
+p.lead {
+  font-size: 1rem;
+}
 @media screen and (min-width: 800px) {
-  #hero-image {
+  #hero-image-mobile {
+    display: none;
+  }
+  #hero-image-desktop {
+    display: block;
+    width: 100vw;
+    object-fit: cover;
+    height: 100vh;
+  }
+  #logo-hero-nav {
+    width: 15rem;
+    height: auto;
+  }
+  #main-text {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #fff;
+    position: relative;
+    top: -25rem;
+    transform: translateY(-8rem);
+    backdrop-filter: brightness(60%);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #hero-image-mobile {
+    display: none;
+  }
+  #hero-image-desktop {
+    display: block;
     width: 100vw;
     object-fit: cover;
     height: 100vh;
@@ -170,4 +202,34 @@ img#logo-top-nav {
   width: 60%;
   margin: 10rem auto 2rem auto;
   padding-top: 2rem;
+}
+
+/* MENTIONS LEGALES*/
+.primary-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 2rem auto;
+}
+.secondary-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 2rem auto;
+}
+
+.Mentions-wrapper {
+  width: 60%;
+  margin: 2rem auto;
+}
+.primary-title,
+.secondary-title,
+.Main-title-Mentions {
+  color: #f0a500;
+}
+.link-mentions {
+  color: #f0a500;
+  text-decoration: none;
+  cursor: pointer;
+}
+.link-mentions:hover {
+  color: #e45826;
 }
