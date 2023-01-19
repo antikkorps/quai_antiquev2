@@ -11,8 +11,7 @@
 {{ form_widget(form.nombreDePersonnes) }}
 {{ form_help(form.nombreDePersonnes) }}
 </div>
-<div class="alert alert-info mt-2">Actuellement pour cette date il nous reste 20 places disponibles. Merci de choisir votre créneau parmi les créneaux disponibles:</div>
-</div>
+{{component('places_restantes') }}
 <div class="form-group mt-4">
 {{ form_label(form.horaireDeVenue) }}
 {{ form_widget(form.horaireDeVenue) }}
