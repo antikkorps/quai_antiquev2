@@ -24,10 +24,12 @@ class PlacesRestantes
         //calculer le nombre de place restantes en faisant (la capacité du matin + la capacité du soir) - le nombre de réservations
         $capaciteglobale = $horaire->getCapaciteMatin() + $horaire->getCapaciteSoir();
         $reservations = $this->reservationRepository->findBy(['horaireDeVenue' => $horaire]);
-        $placesRestantes = $capaciteglobale - $reservations->getNombreDePersonnes(); //on enlève le nombre de personnes de la réservation à la capacité globale
+        $nombreDePersonnes = 0;
         foreach ($reservations as $reservation) {
-            $placesRestantes -= $reservation->getNombreDePersonnes();
+            $nombreDePersonnes += $reservation->getNombreDePersonnes();
         }
+        $placesRestantes = $capaciteglobale - $nombreDePersonnes;
+
         return $placesRestantes;
     }
     public function getHoraires(): array
