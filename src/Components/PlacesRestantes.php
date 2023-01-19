@@ -6,8 +6,9 @@ use App\Repository\HoraireRepository;
 use App\Repository\ReservationRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
+
 #[AsTwigComponent('places_restantes')]
-class PlaceRestantes
+class PlacesRestantes
 {
     public HoraireRepository $horaireRepository;
     public ReservationRepository $reservationRepository;
@@ -20,8 +21,10 @@ class PlaceRestantes
 
     public function getPlacesRestantes($horaire): int
     {
-        $placesRestantes = 100;
+        //calculer le nombre de place restantes en faisant (la capacité du matin + la capacité du soir) - le nombre de réservations
+        $capaciteglobale = $horaire->getCapaciteMatin() + $horaire->getCapaciteSoir();
         $reservations = $this->reservationRepository->findBy(['horaireDeVenue' => $horaire]);
+        $placesRestantes = $capaciteglobale - $reservations->getNombreDePersonnes(); //on enlève le nombre de personnes de la réservation à la capacité globale
         foreach ($reservations as $reservation) {
             $placesRestantes -= $reservation->getNombreDePersonnes();
         }
