@@ -19,7 +19,7 @@ class ReservationController extends AbstractController
     public function index(ReservationRepository $reservationRepository): Response
     {
         $resas = $reservationRepository->findAll();
-        $crenaux = [];
+        $horaireDeVenue = [];
         // $interval = ($resa + 1);
 
         // foreach ($resas as $resa) {

@@ -27,6 +27,9 @@ class Reservation
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $horaireDeVenue = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +79,18 @@ class Reservation
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getHoraireDeVenue(): ?\DateTimeInterface
+    {
+        return $this->horaireDeVenue;
+    }
+
+    public function setHoraireDeVenue(\DateTimeInterface $horaireDeVenue): self
+    {
+        $this->horaireDeVenue = $horaireDeVenue;
 
         return $this;
     }
