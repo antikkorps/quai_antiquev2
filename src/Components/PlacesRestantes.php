@@ -2,38 +2,30 @@
 
 namespace App\Components;
 
+use App\Entity\Reservation;
 use App\Repository\HoraireRepository;
 use App\Repository\ReservationRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-
-#[AsTwigComponent('places_restantes')]
-class PlacesRestantes
+#[AsTwigComponent('places_restantes', template: 'components/places_restantes.html.twig')]
+class PlacesRestantes extends AbstractController
 {
-    public HoraireRepository $horaireRepository;
-    public ReservationRepository $reservationRepository;
-
-    public function __construct(HoraireRepository $horaireRepository, ReservationRepository $reservationRepository)
+    public function getPlacesRestantes(Request $request, PlacesRestantes $placesRestantes, HoraireRepository $horaireRepository, ReservationRepository $reservationRepository): Response
     {
-        $this->horaireRepository = $horaireRepository;
-        $this->reservationRepository = $reservationRepository;
-    }
+        //on récupère la capacité en fonction du jour choisi par l'utilisateur dans le formulaire réservation
+        $capacite = $horaireRepository->findOneBy(['jour' => $request->get('jour')])->getCapaciteMidi() + $horaireRepository->findOneBy(['jour' => $request->get('jour')])->getCapaciteSoir();
+        //on récupère le nombre de réservations en fonction du jour choisi par l'utilisateur dans le formulaire réservation
+        $nbReservations = $reservationRepository->findBy(['jour' => $request->get('jour')]);
+        //on calcule le nombre de places restantes
+        $placesRestantes = $capacite - count($nbReservations);
+        //on retourne le nombre de places restantes
+        dd($placesRestantes);
+        return $this->render('components/places_restantes.html.twig', [
+            'placesRestantes' => $placesRestantes,
 
-    public function getPlacesRestantes($horaire): int
-    {
-        //calculer le nombre de place restantes en faisant (la capacité du matin + la capacité du soir) - le nombre de réservations
-        $capaciteglobale = $horaire->getCapaciteMatin() + $horaire->getCapaciteSoir();
-        $reservations = $this->reservationRepository->findBy(['horaireDeVenue' => $horaire]);
-        $nombreDePersonnes = 0;
-        foreach ($reservations as $reservation) {
-            $nombreDePersonnes += $reservation->getNombreDePersonnes();
-        }
-        $placesRestantes = $capaciteglobale - $nombreDePersonnes;
-
-        return $placesRestantes;
-    }
-    public function getHoraires(): array
-    {
-        return $this->horaireRepository->findAll();
+        ]);
     }
 }
