@@ -29,7 +29,9 @@ class ReservationType extends AbstractType
             ->add('nombreDePersonnes', NumberType::class, [
                 'label' => 'Nombre de convives',
                 'help' => 'Merci de nous informer du nombre de convives vous compris',
-            ])
+
+
+            ],)
             ->add('horaireDeVenue', ChoiceType::class, [
                 'choices' => [
                     '12h00' => 1,

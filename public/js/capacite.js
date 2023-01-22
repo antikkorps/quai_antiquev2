@@ -15,6 +15,10 @@ window.onload = function placesRestantes() {
       const placesReservees = 15 + parseInt(nbPersonnes.target.value);
       console.log(placesReservees);
       // Récupérer la capacité de la totale de la salle
+
+      //on fabrique une url pour récupérer les données de la salle
+      const params = new URLSearchParams(window.location.search);
+      const url = `http://localhost:8000/api/salles/${}`;
       const capaciteMidi = 50;
       const capaciteSoir = 100;
       const capaciteTotale = capaciteMidi + capaciteSoir;
@@ -25,9 +29,10 @@ window.onload = function placesRestantes() {
       //Afficher le nombre de places restantes
       const placesRestantesAffiche = document.getElementById('placesRestantes');
       console.log(placesRestantesAffiche);
-      placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il reste ${placesRestantes} de places disponibles.`;
+
       //for null value show places restantes
-      if (placesRestantes === 0 || placesRestantes < nbPersonnes.target.value) {
+
+      if (placesRestantes <= 0) {
         placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il n'y a plus de places disponibles.`;
       } else {
         placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il reste ${placesRestantes} de places disponibles.`;
