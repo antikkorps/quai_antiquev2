@@ -1,0 +1,12 @@
+<div class="wrapper">
+<div class="form-group col-4 mx-auto mt-5">
+{{ form_start(form) }}
+    <h2 class="text-center pt-5 mb-4">{{ title|default('Ajouter un plat') }}</h2>
+    
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+    {{ form_help(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+</div>
+</div>
