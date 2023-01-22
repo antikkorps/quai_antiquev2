@@ -16,9 +16,7 @@ window.onload = function placesRestantes() {
       console.log(placesReservees);
       // Récupérer la capacité de la totale de la salle
 
-      //on fabrique une url pour récupérer les données de la salle
-      const params = new URLSearchParams(window.location.search);
-      const url = `http://localhost:8000/api/salles/${}`;
+      //on récupère les capacités du restaurant par jour
       const capaciteMidi = 50;
       const capaciteSoir = 100;
       const capaciteTotale = capaciteMidi + capaciteSoir;

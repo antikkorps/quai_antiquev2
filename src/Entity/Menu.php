@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MenuRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MenuRepository::class)]
+#[ApiResource]
 class Menu
 {
     #[ORM\Id]
@@ -15,16 +15,14 @@ class Menu
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 60)]
+    #[ORM\Column(length: 100)]
     private ?string $nom = null;
 
-    #[ORM\ManyToMany(targetEntity: Formule::class, inversedBy: 'menus')]
-    private Collection $formule;
+    #[ORM\Column(length: 100)]
+    private ?string $formule = null;
 
-    public function __construct()
-    {
-        $this->formule = new ArrayCollection();
-    }
+    #[ORM\Column]
+    private ?int $prix = null;
 
     public function getId(): ?int
     {
@@ -43,26 +41,26 @@ class Menu
         return $this;
     }
 
-    /**
-     * @return Collection<int, Formule>
-     */
-    public function getFormule(): Collection
+    public function getFormule(): ?string
     {
         return $this->formule;
     }
 
-    public function addFormule(Formule $formule): self
+    public function setFormule(string $formule): self
     {
-        if (!$this->formule->contains($formule)) {
-            $this->formule->add($formule);
-        }
+        $this->formule = $formule;
 
         return $this;
     }
 
-    public function removeFormule(Formule $formule): self
+    public function getPrix(): ?int
     {
-        $this->formule->removeElement($formule);
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }
