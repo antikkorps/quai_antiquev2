@@ -43,9 +43,8 @@ class PlatRepository extends ServiceEntityRepository
     {
         //return the plats if boolean is true in plat entity
         return $this->createQueryBuilder('p')
-            ->andWhere('p.displayOnHomepage = :val')
-            ->setParameter('val', true)
-            ->orderBy('p.id', 'ASC')
+            ->andWhere('p.afficherSurPageAccueil = True')
+            ->orderBy('p.id', 'DESC')
             ->setMaxResults(6)
             ->getQuery()
             ->getResult();
