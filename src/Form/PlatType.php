@@ -48,6 +48,9 @@ class PlatType extends AbstractType
                 'label' => 'Image du plat',
                 'required' => false,
                 'help' => 'L\'image du plat doit être au format JPG ou PNG',
+                'image_uri'         => false,
+                'delete_label'      => 'Supprimer l\'image ?',
+                'download_label'    => 'Télécharger l\'image',
             ]);
     }
 
