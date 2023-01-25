@@ -17,6 +17,17 @@ window.onload = function placesRestantes() {
       // Récupérer la capacité de la totale de la salle
 
       //on récupère les capacités du restaurant par jour
+
+      function getCapacity() {
+        const url = 'http://localhost:8000/api/horaires/';
+        fetch(url)
+          .then((data) => data.json())
+          .then((horaires) => {
+            console.log(JSON.stringify(horaires));
+          });
+      }
+      getCapacity();
+
       const capaciteMidi = 50;
       const capaciteSoir = 100;
       const capaciteTotale = capaciteMidi + capaciteSoir;
@@ -29,11 +40,19 @@ window.onload = function placesRestantes() {
       console.log(placesRestantesAffiche);
 
       //for null value show places restantes
-
-      if (placesRestantes <= 0) {
-        placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il n'y a plus de places disponibles.`;
-      } else {
-        placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il reste ${placesRestantes} de places disponibles.`;
+      switch (true) {
+        case isNaN(placesRestantes):
+          placesRestantesAffiche.innerHTML = `Veuillez sélectionner une date et un nombre de personnes valide.`;
+          break;
+        case placesRestantes <= 0:
+          placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il n'y a plus de places disponibles.`;
+          break;
+        case placesRestantes > 0:
+          placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il reste ${placesRestantes} de places disponibles.`;
+          break;
+        default:
+          placesRestantesAffiche.innerHTML = `Merci de saisir une date et un nombre de convives pour connaître le nombre de places disponibles.`;
+          break;
       }
     });
   });
