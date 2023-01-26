@@ -31,9 +31,19 @@ window.onload = function placesRestantes() {
               const jour = horaire[1].jour;
               const capaciteMidi = parseInt(horaire[1].capaciteMidi);
               const capaciteSoir = parseInt(horaire[1].capaciteSoir);
-              const capaciteTotale = capaciteMidi + capaciteSoir;
-              console.log(capaciteTotale);
+              //déclaration de la variable capaciteTotale
+              let capaciteTotale;
+              //conditions de calcul pour éviter les NaN dans les résultats
+              if (isNaN(capaciteMidi)) {
+                capaciteTotale = capaciteSoir;
+              } else if (isNaN(capaciteSoir)) {
+                capaciteTotale = capaciteMidi;
+              } else {
+                capaciteTotale = capaciteMidi + capaciteSoir;
+              }
+              //log des résultats
               console.log(jour);
+              console.log(capaciteTotale);
             }
           });
       }
