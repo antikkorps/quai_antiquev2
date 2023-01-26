@@ -19,19 +19,30 @@ window.onload = function placesRestantes() {
       //on récupère les capacités du restaurant par jour
 
       function getCapacity() {
-        const url = 'http://localhost:8000/api/horaires/';
+        const url = 'http://localhost:8000/api/horaires.json';
         fetch(url)
-          .then((data) => data.json())
+          .then((res) => res.json())
           .then((horaires) => {
-            console.log(JSON.stringify(horaires));
+            //log de la totalité des horaires
+            console.log([JSON.stringify(horaires)]);
+
+            //boucle sur les horaires pour récupérer les capacités midi et soir et faire le calcul de la capacité totale
+            for (let horaire of Object.entries(horaires)) {
+              const jour = horaire[1].jour;
+              const capaciteMidi = parseInt(horaire[1].capaciteMidi);
+              const capaciteSoir = parseInt(horaire[1].capaciteSoir);
+              const capaciteTotale = capaciteMidi + capaciteSoir;
+              console.log(capaciteTotale);
+              console.log(jour);
+            }
           });
       }
       getCapacity();
 
-      const capaciteMidi = 50;
-      const capaciteSoir = 100;
-      const capaciteTotale = capaciteMidi + capaciteSoir;
-      console.log(capaciteTotale);
+      // const capaciteMidi = 50;
+      // const capaciteSoir = 100;
+      // const capaciteTotale = capaciteMidi + capaciteSoir;
+      // console.log(capaciteTotale);
       //Calculer le nombre de places restantes
       const placesRestantes = capaciteTotale - placesReservees;
       console.log(placesRestantes);
