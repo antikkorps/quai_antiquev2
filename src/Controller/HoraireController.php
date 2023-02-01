@@ -42,8 +42,8 @@ class HoraireController extends AbstractController
             $ouvertureMidi = $horaire->getouvertureMidi();
             $fermetureMidi = $horaire->getfermetureMidi();
             //calculer l'intervalle entre les deux
-            $intervalMidi = date_diff($ouvertureMidi, $fermetureMidi);
-            dd($intervalMidi);
+            // $intervalMidi = date_diff($ouvertureMidi, $fermetureMidi);
+            // dd($intervalMidi);
             $horaireRepository->save($horaire, true);
 
             return $this->redirectToRoute('app_horaire_index', [], Response::HTTP_SEE_OTHER);
