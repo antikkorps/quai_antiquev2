@@ -6,7 +6,7 @@ use App\Entity\Reservation;
 use App\Entity\User;
 use App\Entity\Horaire;
 use PhpParser\Node\Stmt\Label;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -32,23 +32,23 @@ class ReservationType extends AbstractType
 
 
             ],)
-            ->add('horaireDeVenue', ChoiceType::class, [
-                'choices' => [
-                    '12h00' => 1,
-                    '12h30' => 2,
-                    '13h00' => 3,
-                    '13h30' => 4,
-                    '19h00' => 5,
-                    '19h30' => 6,
-                    '20h00' => 7,
-                    '20h30' => 8,
-                    '21h00' => 9,
-                    '21h30' => 10,
-                    '22h00' => 11,
-                    '22h30' => 12,
-                    '23h00' => 13,
-                    '23h30' => 14,
-                ],
+            ->add('horaireDeVenue', TimeType::class, [
+                // 'choices' => [
+                //     '12:00' => 1,
+                //     '12:30' => 2,
+                //     '13:00' => 3,
+                //     '13:30' => 4,
+                //     '19:00' => 5,
+                //     '19:30' => 6,
+                //     '20:00' => 7,
+                //     '20:30' => 8,
+                //     '21:00' => 9,
+                //     '21:30' => 10,
+                //     '22:00' => 11,
+                //     '22:30' => 12,
+                //     '23:00' => 13,
+                //     '23:30' => 14,
+                // ],
                 'help' => 'Merci de nous informer de votre heure d\'arrivée',
             ])
             ->add('allergies', ChoiceType::class, [

@@ -18,8 +18,7 @@ class Horaire1Type extends AbstractType
             ->add('ouvertureSoir')
             ->add('fermetureSoir')
             ->add('capaciteMidi')
-            ->add('capaciteSoir')
-        ;
+            ->add('capaciteSoir');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
