@@ -50,6 +50,16 @@ class PlatRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function displayByCategory(string $category): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.categoriePlat = :val')
+            ->setParameter('val', $category)
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Plat[] Returns an array of Plat objects
     //     */

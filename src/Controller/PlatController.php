@@ -17,8 +17,15 @@ class PlatController extends AbstractController
     #[Route('/', name: 'app_plat_index', methods: ['GET'])]
     public function index(PlatRepository $platRepository): Response
     {
+        $plat = $platRepository->findAll();
+        $categories = [];
+        foreach ($plat as $p) {
+            $categories[] = $p->getcategoriePlat();
+        }
+
         return $this->render('plat/index.html.twig', [
-            'plats' => $platRepository->findAll(),
+            'plats' => $plat,
+            'categories' => array_unique($categories),
         ]);
     }
 

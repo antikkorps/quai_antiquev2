@@ -279,3 +279,10 @@ p.lead {
 .link-mentions:hover {
   color: #e45826;
 }
+
+/* LA CARTE */
+.maincontainer_la_carte {
+  width: 60%;
+  margin: 5rem auto 0 auto;
+  padding-top: 3rem;
+}

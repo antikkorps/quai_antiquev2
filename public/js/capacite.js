@@ -1,5 +1,14 @@
 'use strict';
 window.onload = function () {
+  let dayOfWeek = [
+    'dimanche',
+    'lundi',
+    'mardi',
+    'mercredi',
+    'jeudi',
+    'vendredi',
+    'samedi',
+  ];
   let dateReservation = document.getElementById('reservation_date');
   let nbConvives = document.getElementById('reservation_nombreDePersonnes');
   let jourReservation;
@@ -16,9 +25,10 @@ window.onload = function () {
     fetch('http://localhost:8000/api/horaires.json')
       .then((res) => res.json())
       .then((horaires) => {
+        console.log(horaires.jour);
         console.log(horaires);
-        console.log(horaires[jourReservation].capaciteMidi);
-        console.log(horaires[jourReservation].capaciteSoir);
+        // console.log(horaires[jourReservation].capaciteMidi);
+        // console.log(horaires[jourReservation].capaciteSoir);
         if (
           horaires[jourReservation].ouvertureMidi === null &&
           horaires[jourReservation].fermetureMidi === null
