@@ -6,6 +6,7 @@ window.onload = function () {
   let capaciteMidi;
   let capaciteSoir;
   let horaires;
+  const capaciteTotale = capaciteMidi + capaciteSoir;
   const options = { weekday: 'long' };
 
   //EventListener sur date souhaitée par le client
@@ -17,6 +18,7 @@ window.onload = function () {
       options
     );
     console.log(`la date de réservation est le ${jourReservation}`);
+    //récupérer les horaires via l'API
     fetch('http://localhost:8000/api/horaires.json')
       .then((res) => res.json())
       .then((data) => {
@@ -26,6 +28,7 @@ window.onload = function () {
         for (let i = 0; i < horaires.length; i++) {
           const jourCapitalized =
             jourReservation.charAt(0).toUpperCase() + jourReservation.slice(1);
+          //gestion des capacités si undefined le matin ou le soir (est-ce que je devrais commencer le calcul de la capacité totale ici ou le faire séparemment après?)
           if (horaires[i].jour === jourCapitalized) {
             console.log(jourCapitalized);
             if (horaires[i].capaciteMidi === undefined) {
@@ -45,38 +48,47 @@ window.onload = function () {
       });
   });
 
-  // //EventListener sur nombre de convives souhaité par le client
-  // nbConvives.addEventListener('input', (nbPersonnes) => {
-  //   console.log(nbPersonnes.target.value);
-  // });
+  //récupérer les réservations via l'API
+  fetch('http://localhost:8000/api/reservations.json').then((res) =>
+    res.json()
+  );
+  then((data) => {
+    reservations = data;
+    console.log(reservations);
+  });
 
-  // const placesRestantesHorsResaClient =
-  //   capaciteMidi + capaciteSoir - reservations; //que je dois aller chercher en fonction du jour souhaite
-  // const placesRestantesAffiche = placesRestantesHorsResaClient - nbConvives; //que je dois aller chercher en fonction du jour souhaite
-  // const ouvertureMidi = horaireFermetureMidi - horaireOuvertureMidi; //que je dois aller chercher en fonction du jour souhaite
-  // const ouvertureSoir = horaireFermeturSoir - horaireOuvertureSoir; //que je dois aller chercher en fonction du jour souhaite
-  // const creneauxMidi = math.floor((ouvertureMidi * 60) / 30);
-  // const creneauxSoir = math.floor((ouvertureSoir * 60) / 30);
+  //EventListener sur nombre de convives souhaité par le client
+  nbConvives.addEventListener('input', (nbConvives) => {
+    console.log(nbConvives.target.value);
+  });
 
-  // function AffichageDuNombreDePlacesRestantes() {
-  //   //Places restantes Avec client client
-  //   switch (true) {
-  //     case isNaN(placesRestantes):
-  //       placesRestantesAffiche.innerHTML = `Veuillez sélectionner une date et un nombre de personnes valide.`;
-  //       break;
-  //     case placesRestantes <= 0:
-  //       placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il n'y a plus de places disponibles.`;
-  //       break;
-  //     case placesRestantes > 0:
-  //       placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il reste ${placesRestantes} de places disponibles.`;
-  //       break;
-  //     default:
-  //       placesRestantesAffiche.innerHTML = `Merci de saisir une date et un nombre de convives pour connaître le nombre de places disponibles.`;
-  //       break;
-  //   }
-  // }
-  // AffichageDuNombreDePlacesRestantes();
-  // console.log(placesRestantes);
+  //calculer les places restantes avant réservation
+  let placesRestantesAffiche = placesRestantesHorsResaClient - nbConvives; //que je dois aller chercher en fonction du jour souhaite;
+  let placesRestantesHorsResaClient = capaciteTotale - reservations; //que je dois aller chercher en fonction du jour souhaite
+  console.log(placesRestantesHorsResaClient);
+
+  //Places restantes Avec client
+  switch (true) {
+    case isNaN(placesRestantes):
+      placesRestantesAffiche.innerHTML = `Veuillez sélectionner une date et un nombre de personnes valide.`;
+      break;
+    case placesRestantes <= 0:
+      placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il n'y a plus de places disponibles.`;
+      break;
+    case placesRestantes > 0:
+      placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il reste ${placesRestantes} de places disponibles.`;
+      break;
+    default:
+      placesRestantesAffiche.innerHTML = `Merci de saisir une date et un nombre de convives pour connaître le nombre de places disponibles.`;
+      break;
+  }
+  console.log(placesRestantes);
+
+  //calculer les créneaux disponibles
+  const ouvertureMidi = horaireFermetureMidi - horaireOuvertureMidi; //que je dois aller chercher en fonction du jour souhaite
+  const ouvertureSoir = horaireFermeturSoir - horaireOuvertureSoir; //que je dois aller chercher en fonction du jour souhaite
+  const creneauxMidi = math.floor((ouvertureMidi * 60) / 30);
+  const creneauxSoir = math.floor((ouvertureSoir * 60) / 30);
 
   // function CalculCreneauxDispo() {
   //   const creneauxGlobale = creneauxMidi + creneauxSoir;

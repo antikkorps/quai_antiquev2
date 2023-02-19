@@ -26,7 +26,7 @@ class AppFixtures extends Fixture
 
         //Création d'un utilisateur de test
         $user = new User();
-     
+
         $user->setPrenom($faker->firstName());
         $user->setNom($faker->lastName());
         $user->setEmail('franck@gmail.com');
@@ -50,18 +50,6 @@ class AppFixtures extends Fixture
 
         $manager->persist($admin);
 
-        //création des horaires d'ouverture et de fermeture du restaurant
-        for ($i = 0; $i < 7; $i++) {
-            $rushHour = new RushHour();
-            $rushHour->setDay($faker->dayOfWeek($i));
-            $rushHour->setMorningOpeningHour($faker->Datetime('H:i'));
-            $rushHour->setMorningClosingHour($faker->Datetime('H:i'));
-            $rushHour->setEveningOpeningHour($faker->Datetime('H:i'));
-            $rushHour->setEveningClosingHour($faker->Datetime('H:i'));
-            $rushHour->setCapacite($faker->randomDigitNotNull());
-
-            $manager->persist($rushHour);
-        }
 
 
         // //création de 10 plats du restaurant
