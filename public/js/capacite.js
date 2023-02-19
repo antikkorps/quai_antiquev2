@@ -6,6 +6,9 @@ window.onload = function () {
   let capaciteMidi;
   let capaciteSoir;
   let horaires;
+  let reservations;
+  let placesRestantesAffiche;
+  let placesRestantesHorsResaClient;
   const capaciteTotale = capaciteMidi + capaciteSoir;
   const options = { weekday: 'long' };
 
@@ -47,25 +50,35 @@ window.onload = function () {
         }
       });
   });
-
-  //récupérer les réservations via l'API
-  fetch('http://localhost:8000/api/reservations.json').then((res) =>
-    res.json()
-  );
-  then((data) => {
-    reservations = data;
-    console.log(reservations);
-  });
-
   //EventListener sur nombre de convives souhaité par le client
   nbConvives.addEventListener('input', (nbConvives) => {
-    console.log(nbConvives.target.value);
-  });
+    console.log(
+      `le client souhaite réserver pour ${nbConvives.target.value} personnes`
+    );
+    nbConvives = nbConvives.target.value;
 
-  //calculer les places restantes avant réservation
-  let placesRestantesAffiche = placesRestantesHorsResaClient - nbConvives; //que je dois aller chercher en fonction du jour souhaite;
-  let placesRestantesHorsResaClient = capaciteTotale - reservations; //que je dois aller chercher en fonction du jour souhaite
-  console.log(placesRestantesHorsResaClient);
+    //récupérer les réservations via l'API
+    fetch('http://localhost:8000/api/reservations.json')
+      .then((res) => res.json())
+      .then((data) => {
+        reservations = data;
+        console.log(reservations);
+
+        //catch datas to calculate places restantes from dateReservation
+        for (let i = 0; i < reservations.length; i++) {
+          if (reservations[i].date === dateReservation) {
+            console.log(reservations[i].date);
+            console.log(reservations[i].nombreDePersonnes);
+            //calculer les places restantes avant réservation
+            placesRestantesHorsResaClient = //que je dois aller chercher en fonction du jour souhaite par le client
+              capaciteTotale - reservations[i].nombreDePersonnes;
+            placesRestantesAffiche = placesRestantesHorsResaClient - nbConvives; //que je dois aller chercher en fonction du jour souhaite par le client
+            console.log(placesRestantesHorsResaClient);
+            console.log(placesRestantesAffiche);
+          }
+        }
+      });
+  });
 
   //Places restantes Avec client
   switch (true) {
