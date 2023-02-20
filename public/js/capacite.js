@@ -9,7 +9,7 @@ window.onload = function () {
   let reservations;
   let placesRestantesAffiche;
   let placesRestantesHorsResaClient;
-  const capaciteTotale = capaciteMidi + capaciteSoir;
+  let capaciteTotale;
   const options = { weekday: 'long' };
 
   //EventListener sur date souhaitée par le client
@@ -50,13 +50,13 @@ window.onload = function () {
         }
       });
   });
+
   //EventListener sur nombre de convives souhaité par le client
   nbConvives.addEventListener('input', (nbConvives) => {
     console.log(
-      `le client souhaite réserver pour ${nbConvives.target.value} personnes`
+      `le client souhaite réserver pour ${nbConvives.target.value} personnes et la capacite midi est de ${capaciteMidi} et la capacite soir est de ${capaciteSoir}`
     );
     nbConvives = nbConvives.target.value;
-
     //récupérer les réservations via l'API
     fetch('http://localhost:8000/api/reservations.json')
       .then((res) => res.json())
@@ -67,13 +67,14 @@ window.onload = function () {
         //catch datas to calculate places restantes from dateReservation
         for (let i = 0; i < reservations.length; i++) {
           if (reservations[i].date === dateReservation) {
+            console.log(reservations.date);
             console.log(reservations[i].date);
             console.log(reservations[i].nombreDePersonnes);
             //calculer les places restantes avant réservation
             placesRestantesHorsResaClient = //que je dois aller chercher en fonction du jour souhaite par le client
               capaciteTotale - reservations[i].nombreDePersonnes;
-            placesRestantesAffiche = placesRestantesHorsResaClient - nbConvives; //que je dois aller chercher en fonction du jour souhaite par le client
             console.log(placesRestantesHorsResaClient);
+            placesRestantesAffiche = placesRestantesHorsResaClient - nbConvives; //que je dois aller chercher en fonction du jour souhaite par le client
             console.log(placesRestantesAffiche);
           }
         }
@@ -81,6 +82,7 @@ window.onload = function () {
   });
 
   //Places restantes Avec client
+
   switch (true) {
     case isNaN(placesRestantes):
       placesRestantesAffiche.innerHTML = `Veuillez sélectionner une date et un nombre de personnes valide.`;
