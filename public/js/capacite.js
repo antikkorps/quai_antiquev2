@@ -1,4 +1,5 @@
 'use strict';
+
 window.onload = function () {
   let dateReservation = document.getElementById('reservation_date');
   let nbConvives = document.getElementById('reservation_nombreDePersonnes');
@@ -7,10 +8,13 @@ window.onload = function () {
   let capaciteSoir;
   let horaires;
   let reservations;
+  let nbResa;
   let placesRestantesAffiche;
   let placesRestantesHorsResaClient;
   let capaciteTotale;
   const options = { weekday: 'long' };
+  let tableau;
+  let tableauReservations;
 
   //EventListener sur date souhaitée par le client
   dateReservation.addEventListener('change', (dateReservation) => {
@@ -65,19 +69,33 @@ window.onload = function () {
         console.log(reservations);
 
         //catch datas to calculate places restantes from dateReservation
+        tableauReservations = [];
         for (let i = 0; i < reservations.length; i++) {
-          if (reservations[i].date === dateReservation) {
-            console.log(reservations.date);
-            console.log(reservations[i].date);
-            console.log(reservations[i].nombreDePersonnes);
-            //calculer les places restantes avant réservation
-            placesRestantesHorsResaClient = //que je dois aller chercher en fonction du jour souhaite par le client
-              capaciteTotale - reservations[i].nombreDePersonnes;
-            console.log(placesRestantesHorsResaClient);
-            placesRestantesAffiche = placesRestantesHorsResaClient - nbConvives; //que je dois aller chercher en fonction du jour souhaite par le client
-            console.log(placesRestantesAffiche);
-          }
+          reservations[i].date = dayjs(reservations[i].date).format(
+            'YYYY-MM-DD'
+          );
+          //je push les reservations dans un tableau
+          tableauReservations.push([
+            reservations[i].date,
+            reservations[i].nombreDePersonnes,
+          ]);
+          console.log(tableauReservations);
+
+          //calculer les places restantes avant réservation
+          placesRestantesHorsResaClient = //que je dois aller chercher en fonction du jour souhaite par le client
+            capaciteTotale - reservations[i].nombreDePersonnes;
+          console.log(placesRestantesHorsResaClient);
+          placesRestantesAffiche = placesRestantesHorsResaClient - nbConvives; //que je dois aller chercher en fonction du jour souhaite par le client
+          console.log(placesRestantesAffiche);
         }
+        tableauReservations.forEach((tableau) => {
+          if (tableau[0] === dateReservation.value) {
+            nbResa = parseInt(nbConvives) + tableau[1];
+            console.log(nbResa);
+          }
+          console.log(tableau);
+          console.table(tableauReservations);
+        });
       });
   });
 
