@@ -3,12 +3,14 @@
 window.onload = function () {
   let dateReservation = document.getElementById('reservation_date');
   let nbConvives = document.getElementById('reservation_nombreDePersonnes');
+  let placesRestantes = document.getElementById('placesRestantes');
   let jourReservation;
   let capaciteMidi;
   let capaciteSoir;
-  let horaires;
+  let horaires = [];
   let reservations;
-  let nbResa;
+  let nbResaAvecClient;
+  let nbResaSansClient;
   let placesRestantesAffiche;
   let placesRestantesHorsResaClient;
   let capaciteTotale;
@@ -16,8 +18,15 @@ window.onload = function () {
   let tableau;
   let tableauReservations;
 
+  function init() {
+    tableauReservations = [];
+    nbConvives.value = '';
+    placesRestantes.innerHTML = `Merci de saisir une date et un nombre de convives pour connaître le nombre de places disponibles.`;
+  }
+
   //EventListener sur date souhaitée par le client
   dateReservation.addEventListener('change', (dateReservation) => {
+    init();
     console.log(`la date est le ${dateReservation.target.value}`);
     dateReservation = dateReservation.target.value;
     jourReservation = new Date(dateReservation).toLocaleDateString(
@@ -50,6 +59,19 @@ window.onload = function () {
               capaciteSoir = horaires[i].capaciteSoir;
               console.log(`la capacité soir est de ${capaciteSoir}`);
             }
+            console.log(
+              `la valeur de horaires ouverture midi es ${horaires[i].ouvertureMidi}`
+            );
+            // if (
+            //   horaires[i].ouvertureMidi === horaires[i].horaireFermetureMidi
+            // ) {
+            //   capaciteMidi = 0;
+            // }
+            // if (
+            //   horaires[i].ouvertureSoir === horaires[i].horaireFermetureSoir
+            // ) {
+            //   capaciteSoir = 0;
+            // }
           }
         }
       });
@@ -68,6 +90,9 @@ window.onload = function () {
         reservations = data;
         console.log(reservations);
 
+        // TODO A partir d'ici, s'il y a une réservation pour la date souhaitée par le client alors on calcule la suite
+        // TODO sinon on prend uniquement la capacité du jour
+
         //catch datas to calculate places restantes from dateReservation
         tableauReservations = [];
         for (let i = 0; i < reservations.length; i++) {
@@ -80,42 +105,49 @@ window.onload = function () {
             reservations[i].nombreDePersonnes,
           ]);
           console.log(tableauReservations);
-
-          //calculer les places restantes avant réservation
-          placesRestantesHorsResaClient = //que je dois aller chercher en fonction du jour souhaite par le client
-            capaciteTotale - reservations[i].nombreDePersonnes;
-          console.log(placesRestantesHorsResaClient);
-          placesRestantesAffiche = placesRestantesHorsResaClient - nbConvives; //que je dois aller chercher en fonction du jour souhaite par le client
-          console.log(placesRestantesAffiche);
         }
         tableauReservations.forEach((tableau) => {
           if (tableau[0] === dateReservation.value) {
-            nbResa = parseInt(nbConvives) + tableau[1];
-            console.log(nbResa);
+            nbResaSansClient = tableau[1];
+            nbResaAvecClient = parseInt(nbConvives) + nbResaSansClient;
+            console.log(nbResaAvecClient);
+            console.log(nbResaSansClient);
+
+            //calculer les places restantes avant réservation
+            capaciteTotale = capaciteMidi + capaciteSoir;
+            console.log(
+              'la capacité totale est de ' + capaciteTotale + ' places'
+            );
+            placesRestantesHorsResaClient = capaciteTotale - nbResaSansClient; //que je dois aller chercher en fonction du jour souhaite par le client
+            console.log(
+              `Hors resa client il reste ${placesRestantesHorsResaClient}`
+            );
+            placesRestantesAffiche = placesRestantesHorsResaClient - nbConvives; //que je dois aller chercher en fonction du jour souhaite par le client
+            console.log(placesRestantesAffiche);
+
+            switch (true) {
+              case isNaN(placesRestantesAffiche):
+                console.log('Nan ici');
+                placesRestantes.innerHTML = `Veuillez sélectionner une date et un nombre de personnes valide.`;
+                break;
+              case placesRestantesAffiche <= 0:
+                console.log('plus de places');
+                placesRestantes.innerHTML = `Actuellement pour la date sélectionnée il n'y a plus de places disponibles.`;
+                break;
+              case placesRestantesAffiche > 0:
+                console.log('il reste des places');
+                placesRestantes.innerHTML = `Actuellement pour la date sélectionnée il reste ${placesRestantesAffiche} de places disponibles.`;
+                break;
+              default:
+                console.log('il faut vérifier');
+                placesRestantes.innerHTML = `Merci de saisir une date et un nombre de convives pour connaître le nombre de places disponibles.`;
+                break;
+            }
           }
-          console.log(tableau);
           console.table(tableauReservations);
         });
       });
   });
-
-  //Places restantes Avec client
-
-  switch (true) {
-    case isNaN(placesRestantes):
-      placesRestantesAffiche.innerHTML = `Veuillez sélectionner une date et un nombre de personnes valide.`;
-      break;
-    case placesRestantes <= 0:
-      placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il n'y a plus de places disponibles.`;
-      break;
-    case placesRestantes > 0:
-      placesRestantesAffiche.innerHTML = `Actuellement pour la date sélectionnée il reste ${placesRestantes} de places disponibles.`;
-      break;
-    default:
-      placesRestantesAffiche.innerHTML = `Merci de saisir une date et un nombre de convives pour connaître le nombre de places disponibles.`;
-      break;
-  }
-  console.log(placesRestantes);
 
   //calculer les créneaux disponibles
   const ouvertureMidi = horaireFermetureMidi - horaireOuvertureMidi; //que je dois aller chercher en fonction du jour souhaite
