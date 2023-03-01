@@ -15,12 +15,14 @@ window.onload = function () {
   let placesRestantesHorsResaClient;
   let capaciteTotale;
   const options = { weekday: 'long' };
-  let tableau;
+  let tableauHoraires;
   let tableauReservations;
   let horaireOuvertureMidi;
   let horaireFermetureMidi;
   let horaireOuvertureSoir;
   let horaireFermetureSoir;
+  let plageMidi;
+  let plageSoir;
 
   function init() {
     tableauReservations = [];
@@ -83,6 +85,7 @@ window.onload = function () {
           //gestion des capacités si undefined le matin ou le soir (est-ce que je devrais commencer le calcul de la capacité totale ici ou le faire séparemment après?)
           if (horaires[i].jour === jourCapitalized) {
             console.log(jourCapitalized);
+            CalculDesCreneauxDisponible(horaires[i]);
             if (horaires[i].capaciteMidi === undefined) {
               console.log(`il n'y a pas de capacité midi`);
               capaciteMidi = 0;
@@ -171,13 +174,34 @@ window.onload = function () {
         }
       });
   });
+  function CalculDesCreneauxDisponible(horaires) {
+    //récupérer les horaires correspondant à l'index du jour de réservation dans le tableau horaires
+    console.log(horaires);
+    horaireOuvertureMidi = parseInt(
+      dayjs(horaires.ouvertureMidi).format('HH:mm')
+    );
+    horaireFermetureMidi = parseInt(
+      dayjs(horaires.fermetureMidi).format('HH:mm')
+    );
+    horaireOuvertureSoir = parseInt(
+      dayjs(horaires.ouvertureSoir).format('HH:mm')
+    );
+    horaireFermetureSoir = parseInt(
+      dayjs(horaires.fermetureSoir).format('HH:mm')
+    );
+    console.log('horaires ouverture midi ' + horaireOuvertureMidi);
+    console.log('horaires fermeture midi ' + horaireFermetureMidi);
+    console.log('horaires ouverture soir ' + horaireOuvertureSoir);
+    console.log('horaires fermeture soir ' + horaireFermetureSoir);
 
-  //calculer les créneaux disponibles
-  const ouvertureMidi = horaireFermetureMidi - horaireOuvertureMidi; //que je dois aller chercher en fonction du jour souhaite
-  const ouvertureSoir = horaireFermeturSoir - horaireOuvertureSoir; //que je dois aller chercher en fonction du jour souhaite
-  const creneauxMidi = math.floor((ouvertureMidi * 60) / 30);
-  const creneauxSoir = math.floor((ouvertureSoir * 60) / 30);
+    plageMidi = horaireFermetureMidi - horaireOuvertureMidi;
+    console.log(plageMidi);
+    //calculer les créneaux disponibles
 
+    let creneauxMidi = Math.floor((plageMidi * 60) / 30);
+    console.log(`il faut ${creneauxMidi} créneaux le midi`);
+    // const creneauxSoir = Math.floor((ouvertureSoir * 60) / 30);
+  }
   // function CalculCreneauxDispo() {
   //   const creneauxGlobale = creneauxMidi + creneauxSoir;
 
