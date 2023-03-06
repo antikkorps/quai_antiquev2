@@ -195,12 +195,15 @@ window.onload = function () {
     console.log('horaires fermeture soir ' + horaireFermetureSoir);
 
     plageMidi = horaireFermetureMidi - horaireOuvertureMidi;
-    console.log(plageMidi);
+    console.log(`la plage du midi en heures est ${plageMidi}`);
+    plageSoir = horaireFermetureSoir - horaireOuvertureSoir;
+    console.log(`la plage du soir en heure est ${plageSoir}`);
     //calculer les créneaux disponibles
 
     let creneauxMidi = Math.floor((plageMidi * 60) / 30);
     console.log(`il faut ${creneauxMidi} créneaux le midi`);
-    // const creneauxSoir = Math.floor((ouvertureSoir * 60) / 30);
+    let creneauxSoir = Math.floor((plageSoir * 60) / 30);
+    console.log(`il faut ${creneauxSoir} créneaux le soir`);
   }
   // function CalculCreneauxDispo() {
   //   const creneauxGlobale = creneauxMidi + creneauxSoir;
